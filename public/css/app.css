@@ -1,0 +1,62 @@
+body{
+    font-family: 'Be Vietnam', sans-serif;
+    background-color: #f3f3f3;
+    font-size: 13px;
+    color:#2e2e2e;
+}
+.section{
+    float:left;
+    width: 100%;
+}
+.menu{
+    background-color: #ffffff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 10;
+}
+.nav li{
+    float: left;
+    margin-right: 10px;
+}
+.nav li a{
+    color: #2e2e2e;
+    font-size: 15px;
+    text-transform: uppercase;
+}
+img{max-width: 100%;}
+.main{
+    padding-top: 75px;
+}
+.brands li{
+    list-style: none;
+    float: left;
+}
+.brands li a{
+    color: #2e2e2e;
+    background-color: #ffffff;
+    margin: 5px;
+    float: left;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 200ms;
+}
+.brands li a:hover{
+    background-color: darkseagreen;
+}
+.item{
+    background-color: #ffffff;
+    padding: 15px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    box-shadow: 0 2px 6px rgba(182, 169, 169, 0.51);
+}
+.item .product-name{
+    font-size: 16px;
+}
+.item .price{
+    color: darkorange;
+    font-size: 14px;
+    font-weight: 500;
+}

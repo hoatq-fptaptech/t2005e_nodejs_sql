@@ -1,0 +1,10 @@
+<section class="section menu">
+    <div class="container">
+        <ul class="nav">
+            <li><a href="#">Trang chủ</a></li>
+            <% danhmucs.map(function (e) { %>
+            <li><a href="#"><%= e.TenDanhMuc %></a></li>
+            <% }) %>
+        </ul>
+    </div>
+</section>
