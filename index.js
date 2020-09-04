@@ -39,27 +39,29 @@ app.get("/",function (req,res) {
    // res.render("home");
 })
 
-app.get("/danh-muc/:id",function (req,res) {
+app.get("/danh-muc/:id",async function (req,res) {
     const DanhMucID = req.params.id;
     const sql_text = "SELECT * FROM DanhMuc;SELECT * FROM ThuongHieu; " +
         "SELECT * FROM SanPham WHERE DanhMucID = "+DanhMucID;
-    db.query(sql_text,function (err,rows) {
-        if(err) res.send(err);
-        else{
-            const danhmucs = rows.recordsets[0];
-            let danhMucHienTai = null;
-            for(let d of danhmucs){
-                if(d.ID == DanhMucID){
-                    danhMucHienTai = d;
-                    break;
-                }
+    let data = {
+        danhmucs: [],
+        thuonghieus: [],
+        sanphams: [],
+        danhMucHienTai: {}
+    }
+    await db.query(sql_text).then(rows=>{
+        const danhmucs = rows.recordsets[0];
+        for(let d of danhmucs){
+            if(d.ID == DanhMucID){
+                data.danhMucHienTai = d;
+                break;
             }
-            res.render("danhmuc",{
-                danhmucs: danhmucs,
-                thuonghieus: rows.recordsets[1],
-                sanphams: rows.recordsets[2],
-                danhMucHienTai: danhMucHienTai
-            })
         }
+        data.danhmucs = danhmucs;
+        data.thuonghieus = rows.recordsets[1];
+        data.sanphams =  rows.recordsets[2];
+    }).catch(err=>{
+
     })
+    res.render("danhmuc",data);
 })
