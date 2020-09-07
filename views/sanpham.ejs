@@ -15,6 +15,7 @@
                 <h2><div class="box-star"><div class="star" style="width:<%= sanpham.TBSao/5*100 %>%;"></div></div> </h2>
                 <form action="/luu-danh-gia" method="post">
                     <input type="hidden" name="SanPhamID" value="<%= sanpham.ID %>"/>
+
                     <div class="form-group">
                         <label>Tên KH</label>
                         <input type="text" name="TenNguoi" class="form-control"/>
@@ -32,6 +33,15 @@
                         <textarea name="NhanXet" cols="4" rows="10" class="form-control">
                         </textarea>
                     </div>
+                    <div class="form-group col-xs-12">
+                        <div class="box-star box-star-x">
+                            <div class="star-x" onmouseenter="checkStar(1)">X</div>
+                            <div class="star-x" onmouseenter="checkStar(2)">X</div>
+                            <div class="star-x" onmouseenter="checkStar(3)">X</div>
+                            <div class="star-x" onmouseenter="checkStar(4)">X</div>
+                            <div class="star-x" onmouseenter="checkStar(5)">X</div>
+                        </div>
+                    </div>
                     <div class="form-group">
                         <button class="btn btn-danger" type="submit">Submit</button>
                     </div>
@@ -45,5 +55,17 @@
         </div>
     </div>
 </section>
+<script type="text/javascript">
+    function checkStar(n) {
+        let s = document.getElementsByClassName("star-x");
+
+        for (let i=1;i<=s.length;i++){
+            s[i-1].classList.remove("active");
+        }
+        for (let i=1;i<=n;i++){
+            s[i-1].classList.add("active");
+        }
+    }
+</script>
 </body>
 </html>
