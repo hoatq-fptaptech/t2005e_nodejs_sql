@@ -1,0 +1,11 @@
+<% sanphams.map(e=>{ %>
+    <div class="col-xs-4">
+        <div class="item">
+            <a href="/san-pham/<%= e.ID %>">
+            <img src="/imgs/default.jpg" class="thumbnail image"/>
+            <h3 class="product-name"><%= e.TenSP %></h3>
+            <p class="price"><%=  new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(e.Gia); %></p>
+            </a>
+        </div>
+    </div>
+<% }) %>

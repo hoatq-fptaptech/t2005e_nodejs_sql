@@ -61,3 +61,18 @@ img{max-width: 100%;}
     font-size: 14px;
     font-weight: 500;
 }
+.box-star{
+    float:left;
+    width: 128px;
+    height: 30px;
+    background-image: url("../imgs/star-off.jpg") ;
+    background-size: 25.6px 25.6px;
+    background-repeat: repeat-x;
+}
+.box-star .star{
+    float: left;
+    height: 30px;
+    background-image: url("../imgs/star-on.jpg") ;
+    background-size: 25.6px 25.6px;
+    background-repeat: repeat-x;
+}

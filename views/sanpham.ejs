@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('head') %>
+</head>
+<body>
+<%- include('menu') %>
+<section class="section main">
+    <div class="container">
+        <div class="row">
+            <%- include('aside') %>
+            <article class="col-xs-9">
+                <h1><%= sanpham.TenSP %></h1>
+                <p><%= sanpham.MoTa %></p>
+                <h2><div class="box-star"><div class="star" style="width:<%= sanpham.TBSao/5*100 %>%;"></div></div> </h2>
+                <form action="/luu-danh-gia" method="post">
+                    <input type="hidden" name="SanPhamID" value="<%= sanpham.ID %>"/>
+                    <div class="form-group">
+                        <label>Tên KH</label>
+                        <input type="text" name="TenNguoi" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Telephone</label>
+                        <input type="text" name="DienThoai" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Số Sao</label>
+                        <input type="number" name="SoSao" class="form-control"/>
+                    </div>
+                    <div class="form-group">
+                        <label>Nhận xét</label>
+                        <textarea name="NhanXet" cols="4" rows="10" class="form-control">
+                        </textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-danger" type="submit">Submit</button>
+                    </div>
+                </form>
+                <ul>
+                    <% danhgias.map(e=>{ %>
+                        <li><%= e.TenNguoi + ": "+ e.NhanXet %></li>
+                    <% }) %>
+                </ul>
+            </article>
+        </div>
+    </div>
+</section>
+</body>
+</html>

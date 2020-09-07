@@ -65,3 +65,43 @@ app.get("/danh-muc/:id",async function (req,res) {
     })
     res.render("danhmuc",data);
 })
+
+app.get("/san-pham/:id",async function (req,res) {
+    let SanPhamID= req.params.id;
+    const sql_text = "SELECT * FROM DanhMuc;SELECT * FROM ThuongHieu; " +
+        "SELECT * FROM SanPham WHERE ID="+SanPhamID+"; SELECT * FROM DanhGiaSanPham WHERE SanPhamID="+SanPhamID;
+    let data = {
+        danhmucs: [],
+        thuonghieus: [],
+        sanpham: {},
+        danhgias:[]
+    }
+    try {
+        const rows = await db.query(sql_text);
+        data.danhmucs = rows.recordsets[0];
+        data.thuonghieus = rows.recordsets[1];
+        data.sanpham = rows.recordsets[2].length>0?rows.recordsets[2][0]:{};
+        data.danhgias = rows.recordsets[3];
+    }catch (e) {
+
+    }
+    res.render("sanpham",data);
+})
+// dung body parser
+const bodyParser = require("body-parser");
+app.use(bodyParser.urlencoded({extended:true}));
+
+app.post("/luu-danh-gia",async function (req,res) {
+    const tenKH = req.body.TenNguoi;
+    const DT = req.body.DienThoai;
+    const SS = req.body.SoSao;
+    const NX = req.body.NhanXet;
+    const SPID = req.body.SanPhamID;
+    const sql_text = "INSERT INTO DanhGiaSanPham(TenNguoi,DienThoai,SoSao,NhanXet,SanPhamID)" +
+        ` VALUES(N'${tenKH}','${DT}',${SS},N'${NX}',${SPID});`;
+    try {
+        await db.query(sql_text);
+    }catch (e) {
+    }
+    res.redirect(`/san-pham/${SPID}`);
+})
