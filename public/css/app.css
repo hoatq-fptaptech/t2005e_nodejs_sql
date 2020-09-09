@@ -25,9 +25,10 @@ body{
     text-transform: uppercase;
 }
 img{max-width: 100%;}
-.main{
-    padding-top: 75px;
+.search{
+    padding-top: 100px;
 }
+.main{padding-top: 10px;}
 .brands li{
     list-style: none;
     float: left;
@@ -86,4 +87,7 @@ img{max-width: 100%;}
 }
 .box-star .star-x.active{
     background-color: red;
+}
+.pagination{
+    float: right;
 }

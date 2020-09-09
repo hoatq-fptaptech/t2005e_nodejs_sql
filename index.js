@@ -105,3 +105,43 @@ app.post("/luu-danh-gia",async function (req,res) {
     }
     res.redirect(`/san-pham/${SPID}`);
 })
+
+app.get("/tim-kiem",async function (req,res) {
+    let keyword = req.query.search;
+    let page = req.query.page !== undefined?req.query.page:1;
+    const limit = 6;
+    let sql_text = "SELECT * FROM DanhMuc;SELECT * FROM ThuongHieu;" +
+        `SELECT a.* FROM SanPham as a ` +
+        "LEFT JOIN DanhMuc as b ON b.ID = a.DanhMucID " +
+        "LEFT JOIN ThuongHieu as c ON c.ID = a.ThuongHieuID " +
+        `WHERE a.TenSP LIKE N'%${keyword}%' `+
+        `OR b.TenDanhMuc LIKE N'%${keyword}%' `+
+        `OR c.TenThuongHieu LIKE N'%${keyword}%' `+
+        `ORDER BY a.ID DESC OFFSET ${(page-1)*limit} ROWS FETCH FIRST ${limit} ROWS ONLY;`+
+        `SELECT count(a.ID) as total FROM SanPham as a ` +
+        "LEFT JOIN DanhMuc as b ON b.ID = a.DanhMucID " +
+        "LEFT JOIN ThuongHieu as c ON c.ID = a.ThuongHieuID " +
+        `WHERE a.TenSP LIKE N'%${keyword}%' `+
+        `OR b.TenDanhMuc LIKE N'%${keyword}%' `+
+        `OR c.TenThuongHieu LIKE N'%${keyword}%';`;
+    let data = {
+        danhmucs: [],
+        thuonghieus: [],
+        sanphams: [],
+        page:parseInt(page),
+        keyword:keyword,
+        total:0,
+        pageNumber:1
+    }
+    try{
+        const rows = await db.query(sql_text);
+        data.danhmucs = rows.recordsets[0];
+        data.thuonghieus = rows.recordsets[1];
+        data.sanphams = rows.recordsets[2];
+        data.total =  rows.recordsets[3][0].total;
+        data.pageNumber = Math.ceil(data.total/limit);
+    }catch (e) {
+        //console.log(e.message);
+    }
+   res.render("search",data);
+})

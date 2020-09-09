@@ -1,0 +1,7 @@
+<ul class="pagination">
+    <li><a href="/tim-kiem/?search=<%= keyword%>"> Về trang đầu</a> </li>
+<% for (let i=1;i<=pageNumber;i++){ %>
+    <li <% if(i==page){ %>class="active" <% } %>><a <% if(i==page){ %> href="javascript:void(0);" <% }else{ %> href="/tim-kiem/?search=<%= keyword%>&page=<%= i %>" <% } %>  ><%= i %></a></li>
+<% } %>
+    <li><a href="/tim-kiem/?search=<%= keyword%>&page=<%= pageNumber %>"> Về trang cuối</a> </li>
+</ul>
